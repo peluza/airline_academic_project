@@ -1,4 +1,4 @@
-// this API consult the data bases for airlines
+// this API consults the data base for airlines
 
 // add dependencies
 const config = require("./controller/config.js");
