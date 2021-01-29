@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 const config = require("../controller/config.js");
 
-// access to DataBases
+// Access to DataBases
 
 const connection = mysql.createConnection({
   host: config.host,
@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
   database: config.name_data_base,
 });
 
-// check connection
+// Check connection
 connection.connect((error) => {
   if (error) throw error;
   console.log("Database server running!");

@@ -7,8 +7,12 @@ router.get("/v1", (req, res) => {
   res.send("Welcome to API");
 });
 
-// get
+/* 
+  SECTION GET
+  ===================================================
+*/
 
+// Get the flights
 router.get("/consulta_vuelos", auth_token.isAuth, (req, res) => {
   const sql = "SELECT * FROM Consulta_Vuelos";
   connection.query(sql, (error, results) => {
@@ -21,6 +25,7 @@ router.get("/consulta_vuelos", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Get relevant user data to start session
 router.get("/usuarios", auth_token.isAuth, (req, res) => {
   const sql = "SELECT * FROM Personas";
   connection.query(sql, (error, results) => {
@@ -33,6 +38,7 @@ router.get("/usuarios", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Get user data relevant to flights
 router.get("/datos_usuarios", auth_token.isAuth, (req, res) => {
   const sql = "SELECT * FROM Date_Users";
   connection.query(sql, (error, results) => {
@@ -45,6 +51,7 @@ router.get("/datos_usuarios", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Get user data relevant for flights by id
 router.get("/datos_usuarios/:id", auth_token.isAuth, (req, res) => {
   const { id } = req.params;
   const sql = `SELECT * FROM Date_Users WHERE id_usuario = ${id}`;
@@ -58,6 +65,7 @@ router.get("/datos_usuarios/:id", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Get relevant user data to start session by id
 router.get("/usuarios/:id", auth_token.isAuth, (req, res) => {
   const { id } = req.params;
   const sql = `SELECT * FROM Personas WHERE id_usuario = ${id}`;
@@ -71,6 +79,7 @@ router.get("/usuarios/:id", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Get the flights by flight number
 router.get("/consulta_vuelos/:id", auth_token.isAuth, (req, res) => {
   const { id } = req.params;
   const sql = `SELECT * FROM Consulta_Vuelos WHERE numero_vuelo = "${id}"`;
@@ -84,7 +93,12 @@ router.get("/consulta_vuelos/:id", auth_token.isAuth, (req, res) => {
   });
 });
 
-// post
+/* 
+  SECTION POST
+  ===================================================
+*/
+
+// Post the fligths
 router.post("/consulta_vuelos", auth_token.isAuth, (req, res) => {
   if (
     req.body == null ||
@@ -114,6 +128,8 @@ router.post("/consulta_vuelos", auth_token.isAuth, (req, res) => {
     return res.status(201).send("Datos creados!");
   });
 });
+
+// Post user data relevant to flights
 router.post("/datos_usuarios", (req, res) => {
   if (
     req.boy == null ||
@@ -135,7 +151,13 @@ router.post("/datos_usuarios", (req, res) => {
     return res.status(201).send("Datos creados!");
   });
 });
-//Update
+
+/* 
+  SECTION PUT
+  ===================================================
+*/
+
+// Put relevant user data to start session
 router.put("/usuarios/:id/update", auth_token.isAuth, (req, res) => {
   if (
     req.body == null ||
@@ -157,6 +179,7 @@ router.put("/usuarios/:id/update", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Put relevant user data to start session (password)
 router.put("/usuarios/:id/password", auth_token.isAuth, (req, res) => {
   if (req.body == null || req.body.password_ == null) {
     return res.status(404).send("Datos invalidos");
@@ -172,6 +195,7 @@ router.put("/usuarios/:id/password", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Put relevant user data to start session (mail)
 router.put("/usuarios/:id/correo", auth_token.isAuth, (req, res) => {
   if (req.body == null || req.body.correo == null) {
     return res.status(404).send("Datos invalidos");
@@ -186,6 +210,7 @@ router.put("/usuarios/:id/correo", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Put relevant user data to start session (name user)
 router.put("/usuarios/:id/nombre_usuario", auth_token.isAuth, (req, res) => {
   if (req.body == null || req.body.nombre_usuario == null) {
     return res.status(404).send("Datos invalidos");
@@ -200,6 +225,7 @@ router.put("/usuarios/:id/nombre_usuario", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Put relevant user data to start session (id user)
 router.put("/datos_usuarios/:id", auth_token.isAuth, (req, res) => {
   if (
     req.body == null ||
@@ -219,6 +245,7 @@ router.put("/datos_usuarios/:id", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Put user data relevant for flights by number flights (number flights)
 router.put(
   "/datos_usuarios/:id/numero_vuelo",
   auth_token.isAuth,
@@ -237,6 +264,7 @@ router.put(
   }
 );
 
+// Put user data relevant for flights by number flights (Payment date)
 router.put("/datos_usuarios/:id/fechaPago", auth_token.isAuth, (req, res) => {
   if (req.body == null || req.body.fechaPago == null) {
     return res.status(404).send("Datos invalidos");
@@ -251,6 +279,7 @@ router.put("/datos_usuarios/:id/fechaPago", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Put the flights by flight number (flight seat)
 router.put("/consulta_vuelos/:id/asiento", auth_token.isAuth, (req, res) => {
   if (
     req.body == null ||
@@ -270,7 +299,12 @@ router.put("/consulta_vuelos/:id/asiento", auth_token.isAuth, (req, res) => {
   });
 });
 
-//Delete
+/* 
+  SECTION DELETE
+  ===================================================
+*/
+
+// Delete relevant user data to start session by id
 router.delete("/usuarios/:id", auth_token.isAuth, (req, res) => {
   const { id } = req.params;
   const sql = `DELETE FROM Personas WHERE id_usuario = ${id}`;
@@ -281,6 +315,7 @@ router.delete("/usuarios/:id", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Delete user data relevant for flights by id
 router.delete("/datos_usuarios/:id", auth_token.isAuth, (req, res) => {
   const { id } = req.params;
   const sql = `DELETE FROM Date_Users WHERE id_usuario = ${id}`;
@@ -291,6 +326,7 @@ router.delete("/datos_usuarios/:id", auth_token.isAuth, (req, res) => {
   });
 });
 
+// Delete the flights by flight number
 router.delete("/consulta_vuelos/:id", auth_token.isAuth, (req, res) => {
   const { id } = req.params;
   const sql = `DELETE FROM Consulta_Vuelos WHERE id_usuario = ${id}`;

@@ -4,6 +4,7 @@ const connection = require("../models/db.js");
 const auth_token = require("../controller/auth.js");
 const config = require("../controller/config.js");
 
+// Reoute for login
 router_user.post("/login", (req, res) => {
   if (
     req.body == null ||
@@ -35,7 +36,7 @@ router_user.post("/login", (req, res) => {
           token,
         });
       } else {
-        return res.status(403).send("error de contraseña");
+        return res.status(403).send({ mesage: "error de contraseña" });
       }
     } else {
       return res.status(403).send("usuario no existe");
@@ -43,8 +44,7 @@ router_user.post("/login", (req, res) => {
   });
 });
 
-// Register
-
+// Reoute for Register
 router_user.post("/register", (req, res) => {
   if (
     req.body == null ||
@@ -69,4 +69,22 @@ router_user.post("/register", (req, res) => {
   });
 });
 
+// Reoute for test the conection for react
+router_user.get("/consult", (req, res) => {
+  const dcit_value = [
+    {
+      id_usuario: 123,
+      numero_vuelo: "ED01",
+      fechaPago: "2020-01-03 06:00:00",
+      ciudad_salida: "Medellin",
+      ciudad_destino: "Bogota",
+      fecha_salida: "2020-01-08 06:00:00",
+      fecha_llegada: "2020-01-08 7:00:00",
+      tarifaVuelo: 800000,
+      estado_vuelo: 1,
+      asiento: "A1",
+    },
+  ];
+  return res.status(200).json(dcit_value);
+});
 module.exports = router_user;

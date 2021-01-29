@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const connection = require("../models/db.js");
 const config = require("../controller/config.js");
 
-// Auth
+// Auth verify access
 module.exports.isAuth = function isAuth(req, res, next) {
   if (!req.headers.authorization) {
     return res.status(403).send({ mesage: "Favor ingrese token" });
@@ -25,11 +25,13 @@ module.exports.isAuth = function isAuth(req, res, next) {
   }
 };
 
+// Encrypt the password
 module.exports.encryptPassword = function encryptPassword(password) {
   const salt = CryptoJS.MD5(password);
   return salt;
 };
 
+// Compare the password
 module.exports.comparePassword = function comparePassword(
   password,
   receivedPassword
@@ -41,6 +43,7 @@ module.exports.comparePassword = function comparePassword(
   }
 };
 
+//Create at token
 module.exports.create_token = function create_token(payload, clave) {
   const token = jwt.sign(payload, clave, {
     expiresIn: 60 * 60 * 24, // expires in 24 hours

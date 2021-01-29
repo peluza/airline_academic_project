@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+//  Export environment
 exports.port = process.env.PORT || 3050;
 exports.clave = process.env.PASSWORD_TOKEN;
 exports.host = process.env.HOST;
