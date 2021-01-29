@@ -1,6 +1,0 @@
-npm i -D express nodemon mysql
-npm i body-parser
-npm install crypto-js
-npm install jsonwebtoken
-npm install express-jwt
-npm i dotenv
